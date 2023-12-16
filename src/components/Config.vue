@@ -779,10 +779,10 @@ export default {
   }
   const apiUrl = 'https://sneaker-back.onrender.com/api/v1/shoes';
 
-  const data = {
+const data = {
     shoe: {
       shoeType: "AIR REV. NITRO S",
-      shoeSize: this.shoeSize,
+      shoeSize: String(this.shoeSize),  // Convert to string
       shoeColorSole: this.selectedColors.shoeColorSole,
       shoeColorLaces: this.selectedColors.shoeColorLaces,
       shoeColorPanelDown: this.selectedColors.shoeColorPanelDown,
@@ -801,6 +801,12 @@ export default {
     },
   };
 
+  // Convert non-string values to strings
+  Object.keys(data.shoe).forEach((key) => {
+    if (typeof data.shoe[key] !== "string") {
+      data.shoe[key] = String(data.shoe[key]);
+    }
+  });
   // Check if any required fields are undefined or null
   const missingFields = Object.keys(data.shoe).filter((key) => {
     return data.shoe[key] === undefined || data.shoe[key] === null;
